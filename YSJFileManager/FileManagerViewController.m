@@ -975,6 +975,13 @@ FileCollectionHeadViewDelegate>
 }
 
 #pragma mark - tableViewDelegate
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    [self.fileArray exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80;
@@ -995,6 +1002,7 @@ FileCollectionHeadViewDelegate>
 
 - (UITableViewCell* )tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     FileTableViewCell *cell = [FileTableViewCell cellWithTableView:tableView YSJFile:self.fileArray[indexPath.row] delegate:self];
+    cell.showsReorderControl = YES;
     return cell;
 }
 
